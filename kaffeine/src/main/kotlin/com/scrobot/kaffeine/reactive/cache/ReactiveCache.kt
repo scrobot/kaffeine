@@ -12,25 +12,17 @@ interface ReactiveCache<K, V> {
 
     fun single(key: K): Mono<V>
 
-    fun single(key: K, mappingFunction: Function<in K, out V>?): Mono<V>
-
     fun fetchAllPresent(keys: Iterable<K>): Flux<V>
 
     fun fetchAllPresentWithKeys(keys: Iterable<K>): Flux<Tuple2<K, V>>
 
-    fun fetchAll(
-        keys: Iterable<K>,
-        mappingFunction: Function<in MutableSet<out K>?, out Map<out K, V>?>?
-    ): Flux<V>
+    fun fetchAll(): Flux<V>
 
-    fun getAllWithKeys(
-        keys: Iterable<K>?,
-        mappingFunction: Function<in MutableSet<out K>?, out Map<out K, V>?>?
-    ): Flux<Tuple2<K, V>>
+    fun fetchAllWithKeys(): Flux<Tuple2<K, V>>
 
     fun put(key: K, value: V)
 
-    fun putAll(map: Map<out K, V>?)
+    fun putAll(map: Map<out K, V>)
 
     fun invalidate(key: K)
 
@@ -39,7 +31,7 @@ interface ReactiveCache<K, V> {
     fun invalidateAll()
 
     @CheckReturnValue
-    fun estimatedSize(): @NonNegative Long
+    fun estimatedSize(): Mono<@NonNegative Long>
 
     @CheckReturnValue
     fun stats(): Mono<CacheStats>
