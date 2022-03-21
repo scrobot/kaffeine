@@ -2,6 +2,7 @@ package com.scrobot.kaffeine.reactive.cache
 
 import com.github.benmanes.caffeine.cache.Cache
 import reactor.core.publisher.Flux
+import reactor.util.function.Tuple2
 
 interface ObservableCache<K, V> : ReactiveCache<K, V> {
 

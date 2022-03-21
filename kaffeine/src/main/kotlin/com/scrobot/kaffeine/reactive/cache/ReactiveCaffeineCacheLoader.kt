@@ -5,6 +5,8 @@ import com.github.benmanes.caffeine.cache.Policy
 import com.github.benmanes.caffeine.cache.stats.CacheStats
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
+import reactor.util.function.Tuple2
+import reactor.util.function.Tuples
 import java.util.concurrent.ConcurrentSkipListSet
 
 class ReactiveCaffeineCacheLoader<K, V>(
@@ -20,7 +22,7 @@ class ReactiveCaffeineCacheLoader<K, V>(
         .flatMap(this::single)
 
     override fun fetchAllPresentWithKeys(keys: Iterable<K>): Flux<Tuple2<K, V>> = Flux.fromIterable(keys)
-        .mapNotNull { key -> cache.getIfPresent(key)?.let { value -> Pair(key, value) } }
+        .mapNotNull { key -> cache.getIfPresent(key)?.let { value -> Tuples.of(key, value) } }
 
     override fun fetchAll(): Flux<V> = fetchAllPresent(keyStore)
 

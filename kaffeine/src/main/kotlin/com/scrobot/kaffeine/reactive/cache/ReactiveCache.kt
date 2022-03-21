@@ -6,7 +6,7 @@ import com.google.errorprone.annotations.CheckReturnValue
 import org.checkerframework.checker.index.qual.NonNegative
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.function.Function
+import reactor.util.function.Tuple2
 
 interface ReactiveCache<K, V> {
 
